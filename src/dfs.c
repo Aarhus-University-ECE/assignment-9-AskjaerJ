@@ -8,35 +8,48 @@
 #include "dfs.h"
 
 
-void DFT (node * root)
-{
+void DFT (node * root) {
+  stack*x = (stack*)malloc(sizeof(stack));
+  x->next = NULL;
+  push(x, root);
+  while (!(isEmpty(x))) {
+    node* temp = pop(x)->node;
+    print_node(temp);
+    if(temp->rchild != NULL) {
+      push(x, temp->rchild);
+    }
+    if(temp->lchild != NULL) {
+      push(x, temp->lchild);
+    }
+  }
+  printf("\n");
 	// Implement DFS
 	// Hint: You can use print_node, print_tree and/or print_stack.
 }
 
-node *make_node (int num, node * left, node * right)
-{
-	return 0;
+node *make_node (int num, node * left, node * right) {
+  node*new = (node*)malloc(sizeof(node));
+  new->num = num;
+  new->lchild = left;
+  new->rchild = right;
+  return new;
 }
 
-void free_node (node * p)
-{
+void free_node (node * p) {
 	
 }
 
 
-void print_node (node * p)
-{
+void print_node (node * p) {
 
   if (p == NULL)
     printf ("NULL\n");
   else
-    printf ("%d", p->num);
+    printf ("%d, ", p->num);
 }
 
 
-void print_tree (node * p, int depth)
-{
+void print_tree (node * p, int depth) {
   for (int i = 0; i < depth; i = i + 1)
     printf (" ");
   printf ("| ");
@@ -58,12 +71,15 @@ void print_tree (node * p, int depth)
 
 stack *push (stack * topp, node * node)
 {
-	return 0;
+	stack*next_node = (stack*)malloc(sizeof(stack)); /* Allocates memory to new node next_node */
+  next_node->node = node; /* Sets node equal to current data  */
+  next_node->next = topp->next;
+  topp->next = next_node;
 }
 
 bool isEmpty (stack * topp)
 {
-  return false;
+  return topp->next == NULL;
 }
 
 node *top (stack * topp)
@@ -76,7 +92,11 @@ node *top (stack * topp)
 
 stack *pop (stack * topp)
 {
-	return 0;
+  stack*temp = 0;
+  temp = topp->next;
+  stack*t = topp->next;
+  topp->next = topp->next->next;
+  return temp;
 }
 
 void print_stack (stack * topp)

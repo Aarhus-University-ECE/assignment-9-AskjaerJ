@@ -14,11 +14,11 @@ void DFT (node * root) {
   push(x, root);
   while (!(isEmpty(x))) {
     node* temp = pop(x)->node;
-    print_node(temp);
-    if(temp->rchild != NULL) {
+    print_node(temp); /* Print the value */
+    if(temp->rchild != NULL) { /* If there is something on the right side push it onto stack */
       push(x, temp->rchild);
     }
-    if(temp->lchild != NULL) {
+    if(temp->lchild != NULL) { /* If there is something on the left side push it onto stack */
       push(x, temp->lchild);
     }
   }
@@ -28,8 +28,8 @@ void DFT (node * root) {
 }
 
 node *make_node (int num, node * left, node * right) {
-  node*new = (node*)malloc(sizeof(node));
-  new->num = num;
+  node*new = (node*)malloc(sizeof(node)); /* Create a new node and allocate memory */
+  new->num = num; /* Designate what is what */
   new->lchild = left;
   new->rchild = right;
   return new;
@@ -70,16 +70,16 @@ void print_tree (node * p, int depth) {
 }
 
 stack *push (stack * topp, node * node)
-{
+{ /* Push function to push onto stack */
 	stack*next_node = (stack*)malloc(sizeof(stack)); /* Allocates memory to new node next_node */
   next_node->node = node; /* Sets node equal to current data  */
-  next_node->next = topp->next;
+  next_node->next = topp->next; 
   topp->next = next_node;
 }
 
 bool isEmpty (stack * topp)
 {
-  return topp->next == NULL;
+  return topp->next == NULL; /* Empty check */
 }
 
 node *top (stack * topp)
@@ -91,7 +91,7 @@ node *top (stack * topp)
 // element from the stack 
 
 stack *pop (stack * topp)
-{
+{ /* Pops the top function, used in DFT */
   stack*temp = 0;
   temp = topp->next;
   stack*t = topp->next;
